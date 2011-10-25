@@ -58,9 +58,19 @@ SurveyInvitations can also take a list of options, making it possible to have on
 
 # Using lightbox, greybox, fancybox #
 
+To customize the look and feel of the dialog, these options take code blocks used to open and close dialog window and redirect user to the survey:
+
+ * openDialog: function used to open lightbox or other widgets
+ * closeDialog: function called when dialog window should be closed
+ * openSurvey: function called to open survey
+
 # Ask again later #
 
-If you're optimistic, you mi
+If you're optimistic, you might want to add a "Ask me again later" button to the dialog that pops up. To do that, you can trigger this javascript when button is clicked:
+
+```javascript
+    survey.askAgainIn(10,'minutes');
+```
 
 Options
 =======
