@@ -92,7 +92,7 @@ Options can be a list of options, but then the visibleAt option must be set for 
 Running tests
 =============
 
-Start JsTestdriver server:
+To run the tests download Google's JsTestDriver.jar file. Start JsTestdriver server:
 
 ```
   $ java -jar JsTestDriver.jar --port 9876
