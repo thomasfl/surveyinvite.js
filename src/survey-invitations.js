@@ -26,57 +26,39 @@ surveyInvitations.Survey = (function (options, href ) {
         href = window.location.href;
     }
 
-    // Return configuration
+    // Return configuration based on matching options
     survey.getSurveyConfig = function(href){
-        var surveyConfig = undefined;
-
+        var surveyConfig;
         options = options || {};
-        if(options.length > 0){
 
-            // If we have a list of options, find the set of options where the regexp patterns
-            // match our current url
-            for(i=0;i<options.length;i++) {
-                regexps = options[i].visibleAt;
-                if(regexps.length > 0){
-                    for(j=0;j<regexps.length;j++) {
-                        if(href.match(regexps[j]) ){
-                            surveyConfig = options[i];
-                        }
-                    }
-                } else {
-                    // We have a single regexp
-                    if(href.match(options[i].visibleAt)){
-                        surveyConfig = options;
-                    }
-                }
-            }
+        // Options can be both a single set of options and a list of options.
+        // If options is not a list of options, make it a list.
+        if(!(options.length > 0)){
+            options = [options];
+        }
 
-        } else {
+        // If we have a list of options, try to find the set of options where the visiableAt propertey
+        // has a regexp that matches our current url.
+        for(i=0;i<options.length;i++) {
 
-            // Check if the visibleAt option match our url
-            if(typeof options.visibleAt !== 'undefined'){
-                if(options.visibleAt.length > 0){
-                    // We have a list of regexps to check
-                    regexps = options.visibleAt;
-                    for(j=0;j<regexps.length;j++) {
-                        if(href.match(regexps[j]) ){
-                            surveyConfig = options;
-                        }
-                    }
-
-                } else {
-                    // We have a single regexp
-                    if(href.match(options.visibleAt)){
-                        surveyConfig = options;
-                    }
-                }
+            regexps = options[i].visibleAt;
+            if(typeof regexps === 'undefined'){
+                surveyConfig = options[i];
             } else {
-                surveyConfig = options;
+                if(!(regexps.length > 0)){
+                    regexps = [regexps];
+                }
+
+                for(j=0;j<regexps.length;j++) {
+                    if(href.match(regexps[j]) ){
+                        surveyConfig = options[i];
+                    }
+                }
             }
 
         }
 
-        // Set defaults
+        // If an option is not set, set it to default value
         if(typeof surveyConfig !== 'undefined'){
             for (var key in defaults) {
                 if(typeof surveyConfig[key] === 'undefined'){

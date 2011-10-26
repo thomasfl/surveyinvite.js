@@ -1,10 +1,11 @@
 SurveyInvitation.js
 ===================
 
+Use surveyinvitations.js to keep track of when, where and how often visitors to your site should be asked if the want to take a short survey. This javascript library can be used with any javascript library, like jquery, and any widget library or lightbox alternative.
 
-# Surveys without any library #
+# How to ask users if they want to take a survey without SurveyInvitation.js #
 
-If you simply want to ask all visitors on your site to take a survey, it's fairly easy with javascript to just ask the visitor if a check is not set.
+If you simply want to ask all visitors on your site to take a survey, it's fairly easy with javascript to simply ask visitors to confirm if they want to take a survey of a cookie is not set.
 
 ```javascript
   var  = $.cookie('survey');
@@ -25,9 +26,11 @@ This will ask all visitors. If you only wan't to ask a random 10% of the visitor
   }
 ```
 
+If your needs are not more advanced than this, you don't need SurveyInvitation.js. If you wan't to have different
+
 # Surveys with SurveyInvitation.js #
 
-The JavaScript library survey-invitation.js wraps the code needed to display invitations to take surveys in to a configurable class. To ask only 10 percent of the visitors randomly, and set start and end dates:
+The JavaScript library survey-invitation.js wraps the code needed to display invitations to take surveys in to a class that takes several options. If, for example, only 10 percent of the visitors to a page, beetwen two dates should be asked to take a survey:
 
 ```javascript
      $(document).ready(function() {
