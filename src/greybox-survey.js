@@ -1,18 +1,14 @@
-/* Example of how to create a class with
- *
+/*
+ *  GreyboxSurvey.js - extends SurveyInvitations.js with defaults for
+ *                     use with modal windows created with greybox
+ *                     (http://orangoo.com/labs/GreyBox/)
  */
 
 GreyboxSurvey = (function(options){
 
     var defaults = {
         openDialog: function(){
-            if($("html[lang=no]").length) {
-                GB_showCenter("Sp\xf8rreunders\xf8kelse",
-                              "http://www.uio.no/vrtx/thomasfl_tmp/survey-dialog-no.html",180,320);
-            } else {
-                GB_showCenter("Survey", "http://www.uio.no/vrtx/thomasfl_tmp/survey-dialog-en.html",180,320);
-            };
-            changeGBCloseLang();
+            GB_showCenter("Survey", "http://www.example.com/survey-dialog.html",180,320);
         },
 
         closeDialog: function(){
