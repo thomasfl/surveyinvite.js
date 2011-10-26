@@ -56,7 +56,7 @@ If the javascript is inserted in to the html across all the pages on a site, but
      });
 ```
 
-SurveyInvitations can also take a list of options, making it possible to have one single configuration file for different survey invitations to on a site.
+SurveyInvitations can also take an array of options, making it possible to have one single configuration file for different survey invitations to on a site.
 
 
 # Using lightbox, greybox, fancybox #

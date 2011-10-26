@@ -69,7 +69,6 @@ surveyInvitations.Survey = (function (options, href ) {
         return surveyConfig;
     };
 
-
     survey.getCookieName = function(){
         return survey.config.cookieName;
     };

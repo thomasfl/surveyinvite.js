@@ -179,38 +179,3 @@ SurveyConfigTest.prototype.testEndDateSet = function() {
     assertFalse( testSurvey.isVisible );
 };
 
-
-SurveyConfigTest.prototype.testSubclassing = function() {
-
-    UioSurvey = (function(options){
-
-        var survey = new surveyInvitations.Survey(options);
-        survey.config.openDialog = function(){
-
-           // if($("html[lang=no]").length) {
-           //     GB_showCenter("Sp\xf8rreunders\xf8kelse",
-           //                   "http://www.uio.no/vrtx/thomasfl_tmp/survey-dialog-no.html",180,320);
-           // } else {
-           //     GB_showCenter("Survey", "http://www.uio.no/vrtx/thomasfl_tmp/survey-dialog-en.html",180,320);
-           // };
-           // changeGBCloseLang();
-
-        };
-
-        survey.config.closeDialog = function(){
-            // GB_hide();
-        };
-
-        survey.config.openSurvey = function(){
-            // window.open(options.surveyUrl,'_newtab');
-        };
-        return survey;
-    });
-
-
-    assertTrue(true);
-
-    var uioSurvey = new UioSurvey({surveyUrl: 'https://nettskjema.uio.no/answer.html?fid=47579&lang=no'});
-    uioSurvey.openSurvey();
-
-};
