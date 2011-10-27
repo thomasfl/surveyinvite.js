@@ -93,7 +93,7 @@ Options
 
 Options can be a list of options, but then the visibleAt option must be set for every set of options.
 
-Full example:
+## Full example ##
 
 ```javascript
 
@@ -128,28 +128,54 @@ Full example:
      });
 ```
 
-HTML for the dialog can be like this
+A html file named 'survey-invitation-dialog.html' must be in place for this to work.
 
 ```html
-<html>
-<body>
-  <p>Please help us making our websites better.</p>
-  <p><strong>Would you like to take a short survey?</strong></p>
-  <form action="" method="get">
+  <html>
+  <body>
+    <p>Please help us making our websites better.</p>
+    <p><strong>Would you like to take a short survey?</strong></p>
+    <form action="" method="get">
 
-       <input name="submit" type="submit" value="Yes"
-              onclick="javascript:parent.parent.survey.openSurvey();return false;"/>
+         <input name="submit" type="submit" value="Yes"
+                onclick="javascript:parent.parent.survey.openSurvey();return false;"/>
 
-       <input name="submit" type="submit" value="No"
-              onclick="javascript:parent.parent.survey.closeDialog();return false;" />
+         <input name="submit" type="submit" value="No"
+                onclick="javascript:parent.parent.survey.closeDialog();return false;" />
 
-       <input name="submit" type="submit" value="Ask me later"
-              onclick="javascript:parent.parent.survey.askAgain();return false;" />
+         <input name="submit" type="submit" value="Ask me later"
+                onclick="javascript:parent.parent.survey.askAgain();return false;" />
 
-  </form>
-</body>
-</html>
+    </form>
+  </body>
+  </html>
 ```html
+
+## More options ##
+
+SurveyInvitation also takes a list of options, making it possible to have one single configuration for many different surveys across a site.
+
+
+```javascript
+
+     var surveys _config = [{
+        visibleAt: /\/products\/,                       // Only display survey invitations at product pages.
+        surveyUrl: 'http://www.surveymonkey.com/s/1',   // The address to the actual survey
+        cookieName: 'ask_again_for_survey_1'            // This must be set if we have different survey campains
+      },
+      {
+        visibleAt: /\/positions\/,                      // Another regexp to match
+        surveyUrl: 'http://www.surveymonkey.com/s/2',   // and another survey
+        cookieName: 'ask_again_for_survey_2'            // This must be set if we have different survey campains
+      }];
+
+     $(document).ready(function() {
+            survey = new surveyInvitations.Survey(survey_config);
+            survey.run();
+     });
+```
+
+```javascript
 
 Running tests
 =============
