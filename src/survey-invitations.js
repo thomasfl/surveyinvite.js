@@ -1,23 +1,29 @@
 /* UserSurvey.js - Ask some of the visitors to take a survey. */
 
-surveyInvitations = {};
+SurveyInvitations = {};
 
-surveyInvitations.Survey = (function (options, href ) {
+SurveyInvitations.Survey = (function (options, href ) {
 
     var survey = {};
 
     var defaults = {
         frequencyPercent: 100,                      // Display dialog on 100% of all..
         percentageOf: 'visitors',                   // 'visitors' or 'page_request'
-        cookieName: 'ask_again_for_survey',
-        startDate: undefined,                      // Start date for survey. Legal values is undefined new Date(2012,12,24)
+        cookieName: 'ask_again_for_survey',         //
+        startDate: undefined,                       // Start date for survey. Legal values is undefined new Date(2012,12,24)
         endDate: new Date(new Date().setDate(
                    new Date().getDate() + 30)),     // Survey expires after 30 days
         expireDays: 30,                             // Let cookie expire after 30 days
         askAgainAmount: 2,                          // Ask user again in 2...
         askAgainDatepart: 'days',                   // ...days
-        cookieDomain: undefined                     // If not set, browser will assume it's the
+        cookieDomain: undefined,                    // If not set, browser will assume it's the
                                                     // same as cookie is beeing set from
+        openDialog: function(){                     // Override this methods
+        },
+        closeDialog: function(){
+        },
+        openSurvey: function(){
+        }
 
     };
 
@@ -33,23 +39,23 @@ surveyInvitations.Survey = (function (options, href ) {
 
         // Options can be both a single set of options and a list of options.
         // If options is not a list of options, make it a list.
-        if(!(options.length > 0)){
+        if(!(options.length)){
             options = [options];
         }
 
         // If we have a list of options, try to find the set of options where the visiableAt propertey
         // has a regexp that matches our current url.
-        for(i=0;i<options.length;i++) {
+        for(var i=0;i<options.length;i++) {
 
             regexps = options[i].visibleAt;
             if(typeof regexps === 'undefined'){
                 surveyConfig = options[i];
             } else {
-                if(!(regexps.length > 0)){
+                if(!(regexps.length)){
                     regexps = [regexps];
                 }
 
-                for(j=0;j<regexps.length;j++) {
+                for(var j=0;j<regexps.length;j++) {
                     if(href.match(regexps[j]) ){
                         surveyConfig = options[i];
                     }
@@ -75,9 +81,9 @@ surveyInvitations.Survey = (function (options, href ) {
 
     survey.clearCookie = function(){
         if(typeof survey.config !== 'undefined'){
-            surveyInvitations.CookieUtils.erase(survey.config.cookieName, survey.config.cookieDomain);
+            SurveyInvitations.CookieUtils.erase(survey.config.cookieName, survey.config.cookieDomain);
         } else {
-            surveyInvitations.CookieUtils.erase(defaults.cookieName, defaults.cookieDomain);
+            SurveyInvitations.CookieUtils.erase(defaults.cookieName, defaults.cookieDomain);
         }
     };
 
@@ -95,19 +101,19 @@ surveyInvitations.Survey = (function (options, href ) {
     };
 
     survey.createCookie = function(name,value){
-        surveyInvitations.CookieUtils.create(name, value, survey.config.expireDays, survey.config.cookieDomain);
+        SurveyInvitations.CookieUtils.create(name, value, survey.config.expireDays, survey.config.cookieDomain);
     };
 
     /* Closes dialog window if user has said no to participate in survey. */
     survey.closeDialog = function(){
-        // surveyInvitations.CookieUtils.create(survey.config.cookieName,'never', survey.config.expireDays);
-        survey.createCookie(survey.config.cookieName,'never');
+        if(!SurveyInvitations.CookieUtils.read(survey.config.cookieName)) {
+            survey.createCookie(survey.config.cookieName,'never');
+        }
         survey.config.closeDialog();
     };
 
     /* Opens survey and closes dialog window */
     survey.openSurvey = function(){
-        // surveyInvitations.CookieUtils.create(survey.config.cookieName,'never', survey.config.expireDays);
         survey.createCookie(survey.config.cookieName,'never');
         survey.config.openSurvey();
         survey.config.closeDialog();
@@ -160,7 +166,7 @@ surveyInvitations.Survey = (function (options, href ) {
         survey.isVisible = true;
 
         /* Don't display if cookie is set to never or a date and time in the future. */
-        var cookie_value = surveyInvitations.CookieUtils.read(survey.config.cookieName);
+        var cookie_value = SurveyInvitations.CookieUtils.read(survey.config.cookieName);
         if(cookie_value){
             if(cookie_value === 'never'){
                 survey.isVisible = false;
@@ -203,14 +209,16 @@ surveyInvitations.Survey = (function (options, href ) {
     /* Set cookie if survey is only visible to a percentage of all visitors */
     if(typeof survey.config !== 'undefined') {
         if(survey.config.percentageOf === 'visitors'){
-            survey.createCookie(survey.config.cookieName,'never');
+            if(!SurveyInvitations.CookieUtils.read(survey.config.cookieName)) {
+                survey.createCookie(survey.config.cookieName,'never');
+            }
         }
     }
     return survey;
 });
 
 /* Cookie utilities from quirksmode.org and slightly extended. */
-surveyInvitations.CookieUtils = {
+SurveyInvitations.CookieUtils = {
 
     create: function(name,value,days,domain) {
         var expires = "";
@@ -241,6 +249,6 @@ surveyInvitations.CookieUtils = {
     },
 
     erase: function(name,domain) {
-        surveyInvitations.CookieUtils.create(name,"",-1,domain);
+        SurveyInvitations.CookieUtils.create(name,"",-1,domain);
     }
 };

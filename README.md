@@ -1,7 +1,7 @@
 SurveyInvitation.js
 ===================
 
-Use surveyinvitations.js to keep track of when, where and how often visitors to your site should be asked if the want to take a short survey. This javascript library can be used with any javascript library, like jquery, and any widget library or lightbox alternative.
+Use surveyinvitations.js to keep track of when, where and how often visitors to your site should be asked if the want to take a short survey. This javascript library can be used with any javascript library, like jquery, and any widget library that provides modal dialogwindows like lightbox or greybox.
 
 # How to ask users if they want to take a survey without SurveyInvitation.js #
 
