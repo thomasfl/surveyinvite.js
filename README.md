@@ -82,7 +82,7 @@ Options
  * visibleAt: undefined (default). A regexp, or a list of regexps, with pattern that should match the current url.
  * frequencyPercent: 100 (default). Specify the amount of visitors which should randomly be asked to take a survey.
  * percentageOf: 'visitors' (default) or 'page_request'
- * askAgainIn: [2,'days'] default. Specify how long it should take before visitors is asked again to take a survey. Can be 'days', 'hours', 'minutes'.
+ * askAgainIn: [2,'days'] (default). Specify how long it should take before visitors is asked again to take a survey. Can be 'days', 'hours', 'minutes'.
  * cookieName: 'ask_again_for_survey' (default). A string that must be set if multiple surveys across a site
  * openDialog: function used to open lightbox or other widgets
  * closeDialog: function called when dialog window should be closed
@@ -93,15 +93,74 @@ Options
 
 Options can be a list of options, but then the visibleAt option must be set for every set of options.
 
+Full example:
+
+```javascript
+
+     var survey_config = {
+        visibleAt: /\/products\/,                   // Only display survey invitations at product pages.
+        surveyUrl: 'http://www.surveymonkey.com/s/PZVWYLP', // The address to the actual survey
+        frequencyPercent: 10,                       // Select a random 10% of all...
+        percentageOf: 'visitors',                   // 'visitors'.
+        cookieName: 'ask_again_for_survey',         //
+        startDate: new Date(2011,10,28),            // Wait until 28th october to start displaying invitations, and ...
+        endDate: new Date(2011,10,30),              // stop 2 days after.
+        expireDays: 4,                              // Let the cookie expire after 4 days
+        askAgainIn: [2,'hours'],                    // Amount to wait if users clicks a "Ask again later" button.
+
+        openDialog: function(){                     // Use greybox to display a modal dialog window.
+                                                    // this url contains html to be displayed inside the modal dialog.
+            GB_showCenter("Survey", "http://www.example.com/survey-invitation-dialog.html",180,320);
+        },
+
+        closeDialog: function(){
+            GB_hide();
+        },
+
+        openSurvey: function(){
+            window.open(this.surveyUrl,'_newtab');   // Open survey in a new tab.
+        }
+     };
+
+     $(document).ready(function() {
+            survey = new surveyInvitations.Survey(survey_config);
+            survey.run();
+     });
+```
+
+HTML for the dialog can be like this
+
+```html
+<html>
+<body>
+  <p>Please help us making our websites better.</p>
+  <p><strong>Would you like to take a short survey?</strong></p>
+  <form action="" method="get">
+
+       <input name="submit" type="submit" value="Yes"
+              onclick="javascript:parent.parent.survey.openSurvey();return false;"/>
+
+       <input name="submit" type="submit" value="No"
+              onclick="javascript:parent.parent.survey.closeDialog();return false;" />
+
+       <input name="submit" type="submit" value="Ask me later"
+              onclick="javascript:parent.parent.survey.askAgain();return false;" />
+
+  </form>
+</body>
+</html>
+```html
+
 Running tests
 =============
 
-To run the tests download Google's JsTestDriver.jar file. Start JsTestdriver server:
+To run the tests simply download Google's JsTestDriver.jar file and start JsTestdriver server:
 
 ```
   $ java -jar JsTestDriver.jar --port 9876
 ```
 
+Redirect one or more browser to http://localhost:9876 and click the capture link.
 Run tests:
 
 ```
