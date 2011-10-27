@@ -149,7 +149,7 @@ A html file named 'survey-invitation-dialog.html' must be in place for this to w
     </form>
   </body>
   </html>
-```html
+```
 
 ## More options ##
 
