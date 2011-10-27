@@ -34,7 +34,7 @@ The JavaScript library survey-invitation.js wraps the code needed to display inv
 
 ```javascript
      $(document).ready(function() {
-            survey = new surveyInvitations.Survey({
+            survey = new SurveyInvitations.Survey({
                                     surveyUrl: 'http://www.surveymonkey.com/s/PZVWYLP',
                                     frequencyPercent: 10,
                                     startDate: new Date(2011,10,28),
@@ -48,7 +48,7 @@ If the javascript is inserted in to the html across all the pages on a site, but
 
 ```javascript
      $(document).ready(function() {
-            survey = new surveyInvitations.Survey({
+            survey = new SurveyInvitations.Survey({
                                     surveyUrl: 'http://www.surveymonkey.com/s/PZVWYLP',
                                     frequencyPercent: 10,
                                     visibleAt: /\/some-urlpath\ });
@@ -123,7 +123,7 @@ Options can be a list of options, but then the visibleAt option must be set for 
      };
 
      $(document).ready(function() {
-            survey = new surveyInvitations.Survey(survey_config);
+            survey = new SurveyInvitations.Survey(survey_config);
             survey.run();
      });
 ```
@@ -170,7 +170,7 @@ SurveyInvitation also takes a list of options, making it possible to have one si
       }];
 
      $(document).ready(function() {
-            survey = new surveyInvitations.Survey(survey_config);
+            survey = new SurveyInvitations.Survey(survey_config);
             survey.run();
      });
 ```
