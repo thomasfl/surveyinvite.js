@@ -175,8 +175,6 @@ SurveyInvitation also takes a list of options, making it possible to have one si
      });
 ```
 
-```javascript
-
 Running tests
 =============
 
