@@ -14,8 +14,7 @@ SurveyInvitations.Survey = (function (options, href ) {
         endDate: new Date(new Date().setDate(
                    new Date().getDate() + 30)),     // Survey expires after 30 days
         expireDays: 30,                             // Let cookie expire after 30 days
-        askAgainAmount: 2,                          // Ask user again in 2...
-        askAgainDatepart: 'days',                   // ...days
+        askAgainIn: [2,'days'],
         cookieDomain: undefined,                    // If not set, browser will assume it's the
                                                     // same as cookie is beeing set from
         openDialog: function(){                     // Override this methods
@@ -106,9 +105,7 @@ SurveyInvitations.Survey = (function (options, href ) {
 
     /* Closes dialog window if user has said no to participate in survey. */
     survey.closeDialog = function(){
-        if(!SurveyInvitations.CookieUtils.read(survey.config.cookieName)) {
-            survey.createCookie(survey.config.cookieName,'never');
-        }
+        survey.createCookie(survey.config.cookieName,'never');
         survey.config.closeDialog();
     };
 
@@ -119,6 +116,14 @@ SurveyInvitations.Survey = (function (options, href ) {
         survey.config.closeDialog();
     };
 
+    survey.askAgain = function(){
+        // var time_section = survey.config.askAgainDatepart;
+        // var amount = survey.config.askAgainAmount;
+        var amount = survey.config.askAgainIn[0];
+        var time_section = survey.config.askAgainIn[1];
+        return survey.askAgainIn(amount, time_section);
+    };
+
     /* Set cookie and close dialog window.
      * Example:
      *    askAgainIn(7,'days')
@@ -126,10 +131,12 @@ SurveyInvitations.Survey = (function (options, href ) {
      */
     survey.askAgainIn = function(amount, time_section ){
         if(typeof time_section === 'undefined'){
-            time_section = survey.config.askAgainDatepart; // 'days'
+            // time_section = survey.config.askAgainDatepart;
+            time_section = survey.config.askAgainIn[1];
         }
         if(typeof amount === 'undefined'){
-            amount = survey.config.askAgainAmount;
+            // amount = survey.config.askAgainAmount;
+            amount = survey.config.askAgainIn[0];
         }
 
         var date = new Date();
@@ -146,7 +153,6 @@ SurveyInvitations.Survey = (function (options, href ) {
             break;
         }
 
-        // surveyInvitations.CookieUtils.create(survey.config.cookieName, askAgainDate.toGMTString(), survey.config.expireDays);
         survey.createCookie(survey.config.cookieName, askAgainDate.toGMTString());
         if(typeof survey.config !== 'undefined'){
             survey.config.closeDialog();

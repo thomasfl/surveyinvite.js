@@ -38,19 +38,25 @@ SurveyConfigTest = TestCase("SurveyConfigTest");
 SurveyConfigTest.prototype.testAskAgain = function() {
     // Should not overwrite cookie if user has clicked 'Ask again later'
     var cookieName = 'ask_again_later';
-    testSurvey = new SurveyInvitations.Survey({cookieName: 'cookieName'});
+    var config = {
+        frequencyPercent: 100,
+        percentageOf: 'visitors',
+        cookieName: cookieName
+    };
+
+    testSurvey = new SurveyInvitations.Survey(config);
     testSurvey.clearCookie();
     assertTrue( SurveyInvitations.CookieUtils.read(cookieName) !== 'never' );
 
 
-    testSurvey = new SurveyInvitations.Survey({cookieName: 'cookieName'});
+    testSurvey = new SurveyInvitations.Survey(config);
     testSurvey.run();
-    assertTrue( SurveyInvitations.CookieUtils.read(cookieName) !== 'never' );
+    assertTrue( SurveyInvitations.CookieUtils.read(cookieName) === 'never' );
 
     testSurvey.askAgainIn(10,'minutes')
     assertTrue( SurveyInvitations.CookieUtils.read(cookieName) !== 'never' );
 
-    testSurvey = new SurveyInvitations.Survey({cookieName: 'cookieName'});
+    testSurvey = new SurveyInvitations.Survey(config);
     testSurvey.run();
     assertTrue( SurveyInvitations.CookieUtils.read(cookieName) !== 'never' );
 
@@ -70,13 +76,13 @@ SurveyConfigTest.prototype.testDefaults = function() {
     /* Should be able to set basic config. */
     testSurvey = new SurveyInvitations.Survey({expireDays: 10});
     assertEquals(10, testSurvey.config.expireDays);
-    assertEquals(2, testSurvey.config.askAgainAmount);
+    assertEquals(2, testSurvey.config.askAgainIn[0]);
 
     /* Should have a set of default configurations. */
     var testSurvey = new SurveyInvitations.Survey();
     assertNotNull(testSurvey.config.startDate);
     assertNotNull(testSurvey.config.endDate);
-    assertEquals(2,testSurvey.config.askAgainAmount);
+    assertEquals(2,testSurvey.config.askAgainIn[0]);
     assertEquals(30, testSurvey.config.expireDays);
 };
 

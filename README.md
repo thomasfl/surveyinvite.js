@@ -78,17 +78,18 @@ If you're optimistic, you might want to add a "Ask me again later" button to the
 Options
 =======
 
- * surveyUrl: string with url to redirect users who answers yes
- * visibleAt: regexp with patterns
- * frequencyPercent: 0 - 100
- * percentageOf: 'visitors' or 'page_request'
- * cookieName: string that must be set if multiple surveys across a site
+ * surveyUrl: String with url to redirect users who answers yes. Mandatory.
+ * visibleAt: undefined (default). A regexp, or a list of regexps, with pattern that should match the current url.
+ * frequencyPercent: 100 (default). Specify the amount of visitors which should randomly be asked to take a survey.
+ * percentageOf: 'visitors' (default) or 'page_request'
+ * askAgainIn: [2,'days'] default. Specify how long it should take before visitors is asked again to take a survey. Can be 'days', 'hours', 'minutes'.
+ * cookieName: 'ask_again_for_survey' (default). A string that must be set if multiple surveys across a site
  * openDialog: function used to open lightbox or other widgets
  * closeDialog: function called when dialog window should be closed
  * openSurvey: function called to open survey
- * cookieDomain: string set if survey should be able to be displayed across more subdomains
- * startDate: datetime
- * endDate: datetime
+ * cookieDomain: undefined (default). A string set if survey should be able to be displayed across more subdomains.
+ * startDate: undefined (default). Datetime.
+ * endDate: undefined (default). Datetime.
 
 Options can be a list of options, but then the visibleAt option must be set for every set of options.
 
