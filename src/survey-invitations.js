@@ -7,6 +7,7 @@ SurveyInvitations.Survey = (function (options, href ) {
     var survey = {};
 
     var defaults = {
+        visiableAt: undefined,                      // Can be a regexp that filters which pages to display survey invitations at.
         frequencyPercent: 100,                      // Display dialog on 100% of all..
         percentageOf: 'visitors',                   // 'visitors' or 'page_request'
         cookieName: 'ask_again_for_survey',         //
@@ -31,6 +32,10 @@ SurveyInvitations.Survey = (function (options, href ) {
         href = window.location.href;
     }
 
+    survey.getHref = function(){
+        return href;
+    };
+
     // Return configuration based on matching options
     survey.getSurveyConfig = function(href){
         var surveyConfig;
@@ -42,7 +47,7 @@ SurveyInvitations.Survey = (function (options, href ) {
             options = [options];
         }
 
-        // If we have a list of options, try to find the set of options where the visiableAt propertey
+        // If we have a list of options, try to find the set of options where the visibleAt propertey
         // has a regexp that matches our current url.
         for(var i=0;i<options.length;i++) {
 
@@ -55,7 +60,7 @@ SurveyInvitations.Survey = (function (options, href ) {
                 }
 
                 for(var j=0;j<regexps.length;j++) {
-                    if(href.match(regexps[j]) ){
+                    if(href.match(regexps[j]) !== null ){
                         surveyConfig = options[i];
                     }
                 }

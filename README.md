@@ -193,4 +193,16 @@ Run tests:
 
 For more documentation on JsTestdriver http://code.google.com/p/js-test-driver
 
+Author
+======
 
+*Thomas Flemming*
+
+ + http://github.com/thomasfl
+ + http://twitter.com/thomasfl
+
+
+License
+---------------------
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
