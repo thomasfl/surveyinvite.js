@@ -1,5 +1,8 @@
-/* UserSurvey.js - Ask some of the visitors to take a survey. */
-
+/* UserSurvey.js 0.4 - Display dialog to ask some of the visitors to take a survey.
+ * Copyright 2011, Thomas Flemming thomas.flemming@gmail.com
+ * Licensed under the MIT license.
+ */
+ 
 SurveyInvitations = {};
 
 SurveyInvitations.Survey = (function (options, href ) {
