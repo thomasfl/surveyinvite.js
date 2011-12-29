@@ -1,6 +1,7 @@
 /* UserSurvey.js 0.4 - Display dialog to ask some of the visitors to take a survey.
- * Copyright 2011, Thomas Flemming thomas.flemming@gmail.com
- * Licensed under the MIT license.
+ *
+ * Author: Thomas Flemming 2011 thomas.flemming(at)gmail.com
+ * Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
  */
  
 SurveyInvitations = {};
