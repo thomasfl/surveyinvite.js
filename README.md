@@ -161,12 +161,12 @@ SurveyInvitation also takes a list of options, making it possible to have one si
      var surveys _config = [{
         visibleAt: /\/products\/,                       // Only display survey invitations at product pages.
         surveyUrl: 'http://www.surveymonkey.com/s/1',   // The address to the actual survey
-        cookieName: 'ask_again_for_survey_1'            // This must be set if we have different survey campains
+        cookieName: 'ask_again_for_survey_1'            // This must be set if we have different survey campaigns
       },
       {
         visibleAt: /\/positions\/,                      // Another regexp to match
         surveyUrl: 'http://www.surveymonkey.com/s/2',   // and another survey
-        cookieName: 'ask_again_for_survey_2'            // This must be set if we have different survey campains
+        cookieName: 'ask_again_for_survey_2'            // This must be set if we have different survey campaigns
       }];
 
      $(document).ready(function() {
